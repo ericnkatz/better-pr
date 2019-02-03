@@ -1,5 +1,7 @@
 #!/usr/bin/env node
 
+const parse = require('minimist')
+
 const fs = require('fs')
 const filepath = require('path')
 const { promisify } = require('util')
@@ -16,10 +18,13 @@ const remote = execa.sync('git', ['config', 'branch.master.remote']).stdout
 const remote_url = execa.sync('git', ['remote', 'get-url', remote]).stdout
 
 const loadTemplate = async (path = false) => {
+    const { _: args = [] } = parse(process.argv.slice(2))
+
     const base = [
+        ...args,
         // will check through this list of some project defaults
-        '.github/pull_request_template.md',
-        'pull_request_template.md'
+        'pull_request_template.md',
+        '.github/pull_request_template.md'
     ]
 
     const paths = path ? [path, ...base] : base
