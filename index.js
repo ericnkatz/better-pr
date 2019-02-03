@@ -48,12 +48,14 @@ const loadTemplate = async (path = false) => {
 }
 
 const loadPRConfig = async () => {
-    const pr_config_exists = await exists(filepath.join(filepath.resolve('./'),'.pr.config.js'))
+    const pr_config_exists = await exists(
+        filepath.join(filepath.resolve('./'), '.pr.config.js')
+    )
     if (!pr_config_exists) {
         throw new Error('pr config file is missing!')
     }
 
-    return require(filepath.join(filepath.resolve('./'),'.pr.config.js'))
+    return require(filepath.join(filepath.resolve('./'), '.pr.config.js'))
 }
 
 const smartAssigned = ({ value, match = false }) =>
@@ -68,7 +70,7 @@ const smartAssigned = ({ value, match = false }) =>
             .prompt([
                 {
                     message: 'Title of Pull Request:',
-                    name: 'title',
+                    name: 'title'
                 },
                 ...variables,
                 {
