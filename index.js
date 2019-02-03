@@ -48,12 +48,12 @@ const loadTemplate = async (path = false) => {
 }
 
 const loadPRConfig = async () => {
-    const pr_config_exists = await exists('.pr.config.js')
+    const pr_config_exists = await exists(filepath.join(filepath.resolve('./'),'.pr.config.js'))
     if (!pr_config_exists) {
         throw new Error('pr config file is missing!')
     }
 
-    return require('./.pr.config')
+    return require(filepath.join(filepath.resolve('./'),'.pr.config.js'))
 }
 
 const smartAssigned = ({ value, match = false }) =>
@@ -62,10 +62,15 @@ const smartAssigned = ({ value, match = false }) =>
 ;(async function() {
     try {
         const base_template = await loadTemplate()
-        const { target, variables, labels } = await loadPRConfig()
+        const { target = 'master', variables, labels } = await loadPRConfig()
 
         inquirer
             .prompt([
+                {
+                    message: 'Title of Pull Request:',
+                    name: 'title',
+                },
+                ...variables,
                 {
                     name: 'labels',
                     type: 'checkbox',
@@ -74,8 +79,7 @@ const smartAssigned = ({ value, match = false }) =>
                         value: d.value,
                         checked: smartAssigned(d)
                     }))
-                },
-                ...variables
+                }
             ])
             .then(answers => {
                 const { title, labels } = answers
