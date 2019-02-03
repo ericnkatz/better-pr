@@ -78,7 +78,7 @@ const smartAssigned = ({ value, match = false }) =>
                 ...variables
             ])
             .then(answers => {
-                const { labels } = answers
+                const { title, labels } = answers
 
                 const template = variables.reduce((variable, __) => {
                     return variable.replace(
@@ -90,7 +90,7 @@ const smartAssigned = ({ value, match = false }) =>
                 opn(
                     `${githubUrlFromGit(
                         remote_url
-                    )}/compare/${target}...${current}?expand=1&body=${template}&labels=${labels}`,
+                    )}/compare/${target}...${current}?expand=1&title=${title}&body=${template}&labels=${labels}`,
                     { wait: false }
                 )
             })
