@@ -85,9 +85,13 @@ const smartAssigned = ({ value, match = false }) =>
                 const { title, labels } = answers
 
                 const template = variables.reduce((variable, __) => {
+                    const answer = Array.isArray(answers[__.name])
+                        ? answers[__.name].join('\n') // join with new line
+                        : answers[__.name]
+
                     return variable.replace(
                         new RegExp(`{${__.name}}`, 'g'),
-                        answers[__.name]
+                        answer
                     )
                 }, base_template)
 
