@@ -1,4 +1,7 @@
-# Nicer Git Templates
+# Better PR
+
+[![npm version](https://badge.fury.io/js/better-pr.svg)](https://badge.fury.io/js/better-pr)
+
 
 Pull Request Templates are great but it sucks to have to go in and replace place holder content in the page UI.
 
