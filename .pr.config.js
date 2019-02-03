@@ -1,15 +1,10 @@
 module.exports = {
-    target: 'master',
     labels: [
         { value: 'bug', match: 'fix' },
         { value: 'duplicate', match: 'chore' },
         { value: 'enhancement', match: 'feature' }
     ],
     variables: [
-        {
-            message: 'Title of Pull Request?',
-            name: 'title',
-        },
         {
             type: 'list',
             name: 'animal',
