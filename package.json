@@ -12,15 +12,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ericnkatz/nicer-git-templates.git"
+    "url": "git+https://github.com/ericnkatz/better-pr.git"
   },
   "keywords": [],
   "author": "Eric Nikolay Katz <admin@ericnkatz.com> (http://ericnkatz.com/)",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/ericnkatz/nicer-git-templates/issues"
+    "url": "https://github.com/ericnkatz/better-pr/issues"
   },
-  "homepage": "https://github.com/ericnkatz/nicer-git-templates#readme",
+  "homepage": "https://github.com/ericnkatz/better-pr#readme",
   "dependencies": {
     "execa": "^1.0.0",
     "github-url-from-git": "^1.5.0",
