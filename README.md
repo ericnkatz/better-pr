@@ -8,14 +8,24 @@ Pull Request Templates are great but it sucks to have to go in and replace place
 This project is a CLI command you can use to generate questions to fill dynamic content regions of your pull request template.
 
 ## Usage
+To add to project:
 
 `yarn add better-pr`
 
-`yarn better-pr TEMPLATE_TARGET.md`
+`yarn better-pr`
 
-By default running `yarn better-pr` will fall back to a local `pull_request_template.md` or `.github/pull_request_template.md`
+By default running `yarn better-pr` will fall back to a local `pull_request_template.md` or `.github/pull_request_template.md` you can pass an additional aruement with another desired template file such as `yarn better-pr src/TEMPLATE.md`
+
+---
+
+To use globally:
+
+`yarn global add better-pr``
+
+`better-pr`
 
 
+Example markdown file with templating for variables  (see documentation for templating at: [handlebarsjs](https://handlebarsjs.com/))
 
 `pull_request_template.md`
 ```markdown
@@ -29,7 +39,7 @@ By default running `yarn better-pr` will fall back to a local `pull_request_temp
 ```
 
 
-`.better-pr` is needed to supply inquirer variables to be filled in.
+`.better-pr` is needed to supply variables to be filled in.
 
 - target branch defaults to master but can be overriden
 - labels are value objects with a match param that will lookup values in branch name to default check labels
@@ -37,13 +47,17 @@ By default running `yarn better-pr` will fall back to a local `pull_request_temp
 
 ```javascript
 module.exports = {
-    target: 'master',
+    target: 'master', // default
     labels: [
-        { value: 'bug', match: 'fix' },
+        // match is used to pre-select based on branch containing match string
+        { value: 'bug', match: 'fix' },  
         { value: 'duplicate', match: 'chore' },
         { value: 'enhancement', match: 'feature' }
     ],
     variables: [
+        // inquirer driven messages/prompts 
+        // for user to answer and fill 
+        // variable values in template
         {
             type: 'list',
             name: 'animal',
@@ -62,7 +76,7 @@ module.exports = {
 
 
 ## @todos
--   Documentation
--   Write new PR templates with dynamic placeholders
--   Prompt user for some values
--   Plugin system to automatically pull other values (e.g. Jira Tickets based on regex in PR name?)
+[ ]  Documentation
+[x]  Write new PR templates with dynamic placeholders
+[x]  Prompt user for some values
+[ ]  Plugin system to automatically pull other values (e.g. Jira Tickets based on regex in PR name?)
