@@ -76,7 +76,7 @@ module.exports = {
 
 
 ## @todos
-[ ]  Documentation
-[x]  Write new PR templates with dynamic placeholders
-[x]  Prompt user for some values
-[ ]  Plugin system to automatically pull other values (e.g. Jira Tickets based on regex in PR name?)
+- [ ]  Documentation
+- [x]  Write new PR templates with dynamic placeholders
+- [x]  Prompt user for some values
+- [ ]  Plugin system to automatically pull other values (e.g. Jira Tickets based on regex in PR name?)
