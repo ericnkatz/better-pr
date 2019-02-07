@@ -1,7 +1,7 @@
 #!/usr/bin/env node
-
 const parse = require('minimist')
-
+const handlebars = require('handlebars')
+const chalk = require('chalk')
 const fs = require('fs')
 const filepath = require('path')
 const { promisify } = require('util')
@@ -16,6 +16,13 @@ const githubUrlFromGit = require('github-url-from-git')
 const current = execa.sync('git', ['symbolic-ref', '--short', 'HEAD']).stdout
 const remote = execa.sync('git', ['config', 'branch.master.remote']).stdout
 const remote_url = execa.sync('git', ['remote', 'get-url', remote]).stdout
+
+// console.log
+const main = chalk.blue
+const info = chalk.green
+const warning = chalk.red
+const plain = chalk.gray
+const message = (string, type = info) => console.log(main`✨ Better PR ✨ `, type(string))
 
 const loadTemplate = async (path = false) => {
     const { _: args = [] } = parse(process.argv.slice(2))
@@ -85,26 +92,23 @@ const smartAssigned = ({ value, match = false }) =>
             ])
             .then(answers => {
                 const { title, labels } = answers
+                const template = handlebars.compile(base_template)(answers)
 
-                const template = variables.reduce((variable, __) => {
-                    const answer = Array.isArray(answers[__.name])
-                        ? answers[__.name].join('\n') // join with new line
-                        : answers[__.name]
-
-                    return variable.replace(
-                        new RegExp(`{${__.name}}`, 'g'),
-                        answer
-                    )
-                }, base_template)
+                const pullRequestUrl = `${githubUrlFromGit(
+                    remote_url
+                )}/compare/${target}...${current}?expand=1&title=${title}&body=${template}&labels=${labels}`
+                
+                message(`Opening Pull Request`) 
+                message(`${title}`, plain) 
+                message(`from \`${current}\` ... to \`${target}\``, plain)
 
                 opn(
-                    `${githubUrlFromGit(
-                        remote_url
-                    )}/compare/${target}...${current}?expand=1&title=${title}&body=${template}&labels=${labels}`,
+                    pullRequestUrl,
                     { wait: false }
                 )
             })
     } catch (error) {
-        console.error(error)
+        message(error, warning)
+        process.exit(1)
     }
 })()
