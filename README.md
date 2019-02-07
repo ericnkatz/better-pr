@@ -19,13 +19,17 @@ By default running `yarn better-pr` will fall back to a local `pull_request_temp
 
 `pull_request_template.md`
 ```markdown
-# Pull Request for {animal}
+# Pull Request for {{animal}}
 
-{animal} will be replaced with your animal choice everywhere {animal} is
+{{animal}} will be replaced with your animal everywhere {{animal}} is
+
+{{#if condition }}
+    this content is only if there is a met variable {{condition}}
+{{/if}}
 ```
 
 
-`.pr.config.js` is needed to supply inquirer variables to be filled in.
+`.better-pr` is needed to supply inquirer variables to be filled in.
 
 - target branch defaults to master but can be overriden
 - labels are value objects with a match param that will lookup values in branch name to default check labels

@@ -49,13 +49,13 @@ const loadTemplate = async (path = false) => {
 
 const loadPRConfig = async () => {
     const pr_config_exists = await exists(
-        filepath.join(filepath.resolve('./'), '.pr.config.js')
+        filepath.join(filepath.resolve('./'), '.better-pr')
     )
     if (!pr_config_exists) {
-        throw new Error('pr config file is missing!')
+        throw new Error('.better-pr file is missing!')
     }
 
-    return require(filepath.join(filepath.resolve('./'), '.pr.config.js'))
+    return require(filepath.join(filepath.resolve('./'), '.better-pr'))
 }
 
 const smartAssigned = ({ value, match = false }) =>
