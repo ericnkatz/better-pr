@@ -20,7 +20,7 @@ By default running `yarn better-pr` will fall back to a local `pull_request_temp
 
 To use globally:
 
-`yarn global add better-pr``
+`yarn global add better-pr`
 
 `better-pr`
 
