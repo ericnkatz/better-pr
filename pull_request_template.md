@@ -4,14 +4,14 @@
 
 {{#if changetype}}
 ## Types of changes
-{{#each changetype}}
+{{#each changetype~}}
     - [x] {{this}}
 {{/each}}
 {{/if}}
 
 {{#if checklist}}
 ## Checklist
-{{#each checklist}}
+{{#each checklist~}}
     - [x] {{this}}
 {{/each}}
 {{/if}}
