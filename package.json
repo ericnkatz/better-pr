@@ -1,6 +1,6 @@
 {
   "name": "better-pr",
-  "version": "2.0.0-rc1",
+  "version": "2.0.0",
   "description": "Pull Request Templates are great but it sucks to have to go in and replace place holder content in the page UI. This projects goal is to write console command that opens up a new pull request after prompting user to complete some dynamic content.",
   "main": "index.js",
   "bin": {

@@ -22,7 +22,9 @@ const main = chalk.blue
 const info = chalk.green
 const warning = chalk.red
 const plain = chalk.gray
-const message = (string, type = info) => console.log(main`✨ Better PR ✨ `, type(string))
+
+const message = (string, type = info) =>
+    console.log(main`✨ Better PR ✨ `, type(string))
 
 const loadTemplate = async (path = false) => {
     const { _: args = [] } = parse(process.argv.slice(2))
@@ -79,16 +81,16 @@ const smartAssigned = ({ value, match = false }) =>
                     message: 'Title of Pull Request:',
                     name: 'title'
                 },
-                ...variables,
                 {
                     name: 'labels',
                     type: 'checkbox',
-                    message: 'What labels should we assign?',
+                    message: 'What labels should we apply?',
                     choices: labels.map(d => ({
                         value: d.value,
                         checked: smartAssigned(d)
                     }))
-                }
+                },
+                ...variables
             ])
             .then(answers => {
                 const { title, labels } = answers
@@ -97,15 +99,12 @@ const smartAssigned = ({ value, match = false }) =>
                 const pullRequestUrl = `${githubUrlFromGit(
                     remote_url
                 )}/compare/${target}...${current}?expand=1&title=${title}&body=${template}&labels=${labels}`
-                
-                message(`Opening Pull Request`) 
-                message(`${title}`, plain) 
-                message(`from \`${current}\` ... to \`${target}\``, plain)
 
-                opn(
-                    pullRequestUrl,
-                    { wait: false }
-                )
+                message(`Opening Pull Request`)
+                message(`${title}`, plain)
+                message(`from \`${current}\` ... to \`${target}\``, plain)
+                message(template)
+                opn(pullRequestUrl, { wait: false })
             })
     } catch (error) {
         message(error, warning)

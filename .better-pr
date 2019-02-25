@@ -1,4 +1,5 @@
 module.exports = {
+    asssignee:'ericnkatz',
     labels: [
         { value: 'bug', match: 'fix' },
         { value: 'duplicate', match: 'chore' },
@@ -6,14 +7,38 @@ module.exports = {
     ],
     variables: [
         {
-            type: 'list',
-            name: 'animal',
-            message: 'What type of animal is it?',
+            message: 'Description:',
+            name: 'description',
+            type: 'editor'
+        },
+        {
+            name: 'changetype',
+            type: 'checkbox',
+            message: 'What type of change is this?',
             choices: [
-                { name: 'dog', value: 'dog' },
-                { name: 'cat', value: 'cat' },
-                { name: 'bird', value: 'bird' }
+                { label: 'Bugfix', value: 'Bugfix (non-breaking change which fixes an issue)' },
+                { label: 'New Feature', value: 'New feature (non-breaking change which adds functionality)' },
+                { label: 'Breaking Change', value: 'Breaking change (fix or feature that would cause existing functionality to not work as expected)' },
+                { label: 'Chore', value: 'Chore (mundane code change)' },
+                { label: 'Maintenance', value: 'Maintenance (clean up or migration of code/features into modern standards)' },
             ]
+        },
+        {
+            name: 'checklist',
+            message: 'Select the items that apply:',
+            type: 'checkbox',
+            choices: [
+                { label: 'Unit tests pass locally with my changes', value: 'Unit tests pass locally with my changes' },
+                { label: 'Manually tested functionality on local system or vhost', value: 'Manually tested functionality on local system or vhost' },
+                { label: 'I have added tests to code that was updated or edited', value: 'I have added tests to code that was updated or edited' },
+                { label: 'I have added necessary documentation', value: 'I have added necessary documentation' },
+                { label: 'Contacted appropriate UAT', value: 'Contacted appropriate UAT' },
+            ]
+        },
+        {
+            message: 'Steps to Review:',
+            name: 'review_steps',
+            type: 'editor'
         }
     ]
 }

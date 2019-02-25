@@ -1,7 +1,28 @@
-# Pull Request for {{animal}}
+## Description
 
-{{animal}} will be replaced with your animal everywhere {{animal}} is
+{{description}}
 
-{{#if missing }}
-    this content is only if there is missing
+{{#if changetype}}
+## Types of changes
+{{#each changetype~}}
+    - [x] {{this}}
+{{/each}}
+{{/if}}
+
+{{#if checklist}}
+## Checklist
+{{#each checklist~}}
+    - [x] {{this}}
+{{/each}}
+{{/if}}
+
+{{#if review_steps}}
+## Steps to test or review
+
+👀
+{{review_steps}}
+{{^}}
+
+NO REVIEW STEPS
+
 {{/if}}
