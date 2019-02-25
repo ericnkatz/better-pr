@@ -1,19 +1,24 @@
+
 ## Description
+{{#if description}}
 
 {{description}}
-
-{{#if changetype}}
-## Types of changes
-{{#each changetype~}}
-    - [x] {{this}}
-{{/each}}
+{{^~}}
+    Empty Description
 {{/if}}
 
-{{#if checklist}}
-## Checklist
-{{#each checklist~}}
-    - [x] {{this}}
-{{/each}}
+{{#if changetype~}}
+    ## Types of changes
+    {{#each changetype~}}
+        - [x] {{this}}
+    {{/each}}
+{{/if}}
+
+{{#if checklist~}}
+    ## Checklist
+    {{#each checklist~}}
+        - [x] {{this}}
+    {{/each}}
 {{/if}}
 
 {{#if review_steps}}
@@ -21,8 +26,6 @@
 
 👀
 {{review_steps}}
-{{^}}
-
-NO REVIEW STEPS
-
+{{^~}}
+    NO REVIEW STEPS
 {{/if}}
