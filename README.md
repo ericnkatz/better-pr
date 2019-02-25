@@ -7,53 +7,38 @@ Pull Request Templates are great but it sucks to have to go in and replace place
 
 This project is a CLI command you can use to generate questions to fill dynamic content regions of your pull request template.
 
-## Usage
-To add to project:
-
-`yarn add better-pr`
-
-`yarn better-pr`
-
-By default running `yarn better-pr` will fall back to a local `pull_request_template.md` or `.github/pull_request_template.md` you can pass an additional aruement with another desired template file such as `yarn better-pr src/TEMPLATE.md`
-
----
-
-To use globally:
+## Installation
+To use install globally with yarn (, npx etc...):
 
 `yarn global add better-pr`
 
+the just run better-pr in your GitHub based project.
 `better-pr`
 
+By default `better-pr` will fall back to a local `pull_request_template.md` or `.github/pull_request_template.md` but you can pass a arguemet to the temmplate file as well for example: `better-pr src/TEMPLATE.md`
 
-Example markdown file with templating for variables  (see documentation for templating at: [handlebarsjs](https://handlebarsjs.com/))
+## Usage
+Better PR uses handlebars templating from within markdown files to create logical dynamic updates to your pull request temmplate files
+(see documentation for handlebars templating at: [handlebarsjs.com](https://handlebarsjs.com/))
 
-`pull_request_template.md`
+In your project for example you could have a pull_request_template.md like the following: `pull_request_template.md`
+The pull request template can be as intricate as you would like or as basic as a normal pull request template without dynamic fields.
+
 ```markdown
-# Pull Request for {{animal}}
+# Pull Request for Your Project!
 
-{{animal}} will be replaced with your animal everywhere {{animal}} is
-
-{{#if condition }}
-    this content is only if there is a met variable {{condition}}
+{{#if animal}}
+    {{animal}} will be replaced with your animal everywhere {{animal}} is
+{{^}}
+    this content is only here if you didnt supply an animmal - whoops
 {{/if}}
 ```
 
-
-`.better-pr` is needed to supply variables to be filled in.
-
-- target branch defaults to master but can be overriden
-- labels are value objects with a match param that will lookup values in branch name to default check labels
-- variables are an array of inquirer questions with name labels that will be replaced in your template file.
+`.better-pr` file is necessary to provide context to the dynamic content you would like placed within your template. Using the example `pull_request_template.md` above your config will look sommething like this:
 
 ```javascript
-module.exports = {
-    target: 'master', // default
-    labels: [
-        // match is used to pre-select based on branch containing match string
-        { value: 'bug', match: 'fix' },  
-        { value: 'duplicate', match: 'chore' },
-        { value: 'enhancement', match: 'feature' }
-    ],
+// options {}
+module.exports = { 
     variables: [
         // inquirer driven messages/prompts 
         // for user to answer and fill 
@@ -72,11 +57,24 @@ module.exports = {
 }
 ```
 
+## Options
+
+### variables
+Variables are an array of inquirer questions with name labels that will be replaced in your template file. (see documentation from inquirer for advanced formats)
+
+### target
+Target branch defaults to `master` but can be oveerriden to `development` etc.
+
+```javascript
+{
+    target: 'development',
+    ...
+}
+```
+
+### labels
+- labels are value objects with a match param that will lookup values in branch name to default check labels
 
 
-
-## @todos
-- [ ]  Documentation
-- [x]  Write new PR templates with dynamic placeholders
-- [x]  Prompt user for some values
+### TODO
 - [ ]  Plugin system to automatically pull other values (e.g. Jira Tickets based on regex in PR name?)
