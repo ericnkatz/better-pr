@@ -103,7 +103,7 @@ const smartAssigned = ({ value, match = false }) =>
                 message(`Opening Pull Request`)
                 message(`${title}`, plain)
                 message(`from \`${current}\` ... to \`${target}\``, plain)
-                message(template)
+                message("\n" + template, plain)
                 opn(pullRequestUrl, { wait: false })
             })
     } catch (error) {
